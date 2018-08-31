@@ -1,17 +1,12 @@
-package io.pivotal.workshop;
+package io.pivotal.workshop.repository;
 
-import io.pivotal.workshop.domain.StockRecord;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
+import io.pivotal.workshop.domain.StockInfo;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.sql.*;
-import java.util.List;
-
-import static java.util.UUID.randomUUID;
 
 @Repository
-public class StockRepository {
+public interface StockRepository extends CrudRepository<StockInfo, String> {
 
 
 }
