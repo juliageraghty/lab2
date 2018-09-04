@@ -16,6 +16,7 @@ import static org.hibernate.hql.internal.antlr.HqlTokenTypes.AS;
 @Repository
 public interface StockRepository extends JpaRepository<StockInfo, Long> {
 
-    @Query("SELECT DISTINCT" + "symbol, max(price), min(price), (round(sum(volume)) AS totalVolume) FROM stockdb.stock_info WHERE date=? GROUP BY symbol")
+    String query = "SELECT DISTINCT s.symbol, max(s.price), min(s.price), round(sum(s.volume)) AS totalVolume FROM StockInfo s WHERE s.date= :date GROUP BY s.symbol";
+    @Query(query)
     List<StockResponse> queryByDate(@Param("date")Date date);
 }

@@ -24,7 +24,6 @@ public class StockController {
         return stockRepository.findAll();
     }
 
-
     @GetMapping("/{date}")
     public StockResponse stockInfo(@PathVariable("date") Date date) {
         StockResponse response = new StockResponse();
