@@ -10,13 +10,12 @@ import org.springframework.stereotype.Repository;
 import java.sql.Date;
 import java.util.List;
 
-import static org.hibernate.hql.internal.antlr.HqlTokenTypes.AS;
 
 
 @Repository
 public interface StockRepository extends JpaRepository<StockInfo, Long> {
 
-    String query = "SELECT DISTINCT s.symbol, max(s.price), min(s.price), round(sum(s.volume)) AS totalVolume FROM StockInfo s WHERE s.date= :date GROUP BY s.symbol";
+    String query = "SELECT DISTINCT s.symbol, max(s.price) AS maximum, min(s.price) AS minimum, round(sum(s.volume)) AS totalVolume FROM StockInfo s WHERE s.symbol= :symbol AND s.date= :date GROUP BY s.symbol";
     @Query(query)
-    List<StockResponse> queryByDate(@Param("date")Date date);
+    StockResponse queryByDate(@Param("symbol") String symbol, @Param("date")Date date);
 }

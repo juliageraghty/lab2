@@ -30,6 +30,7 @@ public class Lab2Application {
 			InputStream inputStream = TypeReference.class.getResourceAsStream("/json/stocks.json");
 			try {
 				List<StockInfo> stocks = mapper.readValue(inputStream,typeReference);
+				stockRepository.deleteAll();
 				stockRepository.saveAll(stocks);
 				System.out.println("Stocks Saved!");
 			} catch (IOException e){

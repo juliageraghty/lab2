@@ -1,7 +1,7 @@
 package io.pivotal.workshop.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 public class StockResponse {
@@ -9,9 +9,13 @@ public class StockResponse {
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY )
     private Long id;
-    public long price;
-    public long volume;
-    public Date date;
+    @JsonProperty("maximum")
+    public Integer maximum;
+    @JsonProperty("minimum")
+    public Integer minimum;
+    @JsonProperty("totalVolume")
+    public Integer totalVolume;
+    @JsonProperty("symbol")
 
     private String symbol;
 
@@ -23,29 +27,35 @@ public class StockResponse {
         this.symbol = symbol;
     }
 
-    public long getPrice() {
-        return price;
+    public long getMaximum() {
+        return maximum;
     }
 
-    public void setPrice(long price) {
-        this.price = price;
+    public void setMaximum(Integer maximum) {
+        this.maximum = maximum;
     }
 
-    public long getVolume() {
-        return volume;
+    public long getTotalVolume() {
+        return totalVolume;
     }
 
-    public void setVolume(long volume) {
-        this.volume = volume;
+    public void setTotalVolume(Integer totalVolume) {
+        this.totalVolume = totalVolume;
     }
 
-    public Date getDate() {
-        return date;
+    public long getMinimum() {
+        return minimum;
     }
 
-    public void setDate(java.sql.Date date) {
-        this.date = date;
+    public void setMinimum(Integer minimum) {
+        this.minimum = minimum;
     }
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/stocks")
@@ -24,15 +25,10 @@ public class StockController {
         return stockRepository.findAll();
     }
 
-    @GetMapping("/{date}")
-    public StockResponse stockInfo(@PathVariable("date") Date date) {
-        StockResponse response = new StockResponse();
-        response.setDate(Date.valueOf("2018-06-22"));
-        response.setPrice(201);
-        response.setSymbol("GOOG");
-        response.setVolume(123);
-        return response;
-
+    @GetMapping("/{symbol}/{date}")
+    public StockResponse queryByDate(@PathVariable("symbol") String symbol, @PathVariable("date") Date date) {
+        //System.out.println(stockRepository.queryByDate(symbol, date));
+        return stockRepository.queryByDate(symbol,date);
     }
 
 }
