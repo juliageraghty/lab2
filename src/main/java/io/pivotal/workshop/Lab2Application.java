@@ -3,6 +3,7 @@ package io.pivotal.workshop;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.pivotal.workshop.domain.StockInfo;
+import io.pivotal.workshop.repository.StockRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,7 +22,7 @@ public class Lab2Application {
 	}
 
 	@Bean
-	CommandLineRunner runner(StockService stockService){
+	CommandLineRunner runner(StockRepository stockRepository){
 		return args -> {
 			// read JSON and load json
 			ObjectMapper mapper = new ObjectMapper();
@@ -29,10 +30,10 @@ public class Lab2Application {
 			InputStream inputStream = TypeReference.class.getResourceAsStream("/json/stocks.json");
 			try {
 				List<StockInfo> stocks = mapper.readValue(inputStream,typeReference);
-				stockService.saveAll(stocks);
+				stockRepository.saveAll(stocks);
 				System.out.println("Stocks Saved!");
 			} catch (IOException e){
-				System.out.println("Unable to save users: " + e.getMessage());
+				System.out.println("Unable to save stocks: " + e.getMessage());
 			}
 		};
 	}

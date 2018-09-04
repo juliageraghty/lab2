@@ -1,8 +1,5 @@
 package io.pivotal.workshop.domain;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -15,15 +12,14 @@ public class StockInfo {
     private String symbol;
     public long price;
     public long volume;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "date", columnDefinition = "DATETIME")
     public Date date;
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public void setId(Long id) { this.id = id; }
 
     public String getSymbol() {
         return symbol;
