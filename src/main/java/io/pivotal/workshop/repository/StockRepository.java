@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface StockRepository extends CrudRepository<StockInfo, String> {
+public interface StockRepository extends CrudRepository<StockInfo, Long> {
 
 
 }

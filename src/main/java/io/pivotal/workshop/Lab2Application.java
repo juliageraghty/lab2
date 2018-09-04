@@ -1,16 +1,17 @@
 package io.pivotal.workshop;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import io.pivotal.workshop.domain.StockInfo;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URL;
+import java.io.InputStream;
+import java.util.List;
+
 
 @SpringBootApplication
 public class Lab2Application {
@@ -20,18 +21,20 @@ public class Lab2Application {
 	}
 
 	@Bean
-	CommandLineRunner runner(StockService stockService) {
+	CommandLineRunner runner(StockService stockService){
 		return args -> {
+			// read JSON and load json
 			ObjectMapper mapper = new ObjectMapper();
+			TypeReference<List<StockInfo>> typeReference = new TypeReference<List<StockInfo>>(){};
+			InputStream inputStream = TypeReference.class.getResourceAsStream("/json/stocks.json");
 			try {
-				URL url = new URL("https://bootcamp-training-files.cfapps.io/week2/week2-stocks.json");
-				StockInfo stockInfo = mapper.readValue(url, StockInfo.class);
-				System.out.println(stockInfo);
-			} catch (IOException e) {
-				e.printStackTrace();
+				List<StockInfo> stocks = mapper.readValue(inputStream,typeReference);
+				System.out.println("Stocks Saved!");
+			} catch (IOException e){
+				System.out.println("Unable to save users: " + e.getMessage());
 			}
-
-			};
+		};
 	}
 
 }
+
