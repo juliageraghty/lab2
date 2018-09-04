@@ -29,6 +29,7 @@ public class Lab2Application {
 			InputStream inputStream = TypeReference.class.getResourceAsStream("/json/stocks.json");
 			try {
 				List<StockInfo> stocks = mapper.readValue(inputStream,typeReference);
+				stockService.saveAll(stocks);
 				System.out.println("Stocks Saved!");
 			} catch (IOException e){
 				System.out.println("Unable to save users: " + e.getMessage());

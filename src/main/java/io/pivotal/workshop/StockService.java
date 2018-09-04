@@ -25,5 +25,8 @@ public class StockService {
         return stockRepository.save(stock);
     }
 
+    public void saveAll(List<StockInfo> stockInfos) {
+        saveAll(stockRepository.saveAll(stockInfos));
+    }
 
 }
