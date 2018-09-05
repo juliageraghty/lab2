@@ -5,16 +5,14 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-public class StockInfo {
+public class StockQuote {
 
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY )
     private Long id;
-
     private String symbol;
     public long price;
     public long volume;
-
     @Temporal(TemporalType.DATE)
     @Column(name = "date", columnDefinition = "DATETIME")
     public Date date;
@@ -60,5 +58,5 @@ public class StockInfo {
     }
 
 
-    public StockInfo() { }
+    public StockQuote() { }
 }

@@ -2,7 +2,7 @@ package io.pivotal.workshop;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.pivotal.workshop.domain.StockInfo;
+import io.pivotal.workshop.domain.StockQuote;
 import io.pivotal.workshop.repository.StockRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -26,10 +26,10 @@ public class Lab2Application {
 		return args -> {
 			// read JSON and load json
 			ObjectMapper mapper = new ObjectMapper();
-			TypeReference<List<StockInfo>> typeReference = new TypeReference<List<StockInfo>>(){};
+			TypeReference<List<StockQuote>> typeReference = new TypeReference<List<StockQuote>>(){};
 			InputStream inputStream = TypeReference.class.getResourceAsStream("/json/stocks.json");
 			try {
-				List<StockInfo> stocks = mapper.readValue(inputStream,typeReference);
+				List<StockQuote> stocks = mapper.readValue(inputStream,typeReference);
 				stockRepository.deleteAll();
 				stockRepository.saveAll(stocks);
 				System.out.println("Stocks Saved!");
