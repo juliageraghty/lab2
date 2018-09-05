@@ -20,15 +20,12 @@ public class StockResponse {
     Long minimum,
     @JsonProperty("totalVolume")
     Long totalVolume,
-    @JsonProperty("date") java.util.Date date)
-
-    {
+    @JsonProperty("date") java.util.Date date) {
         this.maximum = maximum;
         this.minimum = minimum;
         this.totalVolume = totalVolume;
         this.symbol = symbol;
         this.date = date;
-
     }
 
     public Long getMaximum() {

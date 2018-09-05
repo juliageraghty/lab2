@@ -11,10 +11,8 @@ import java.sql.Date;
 @Repository
 public interface StockRepository extends JpaRepository<StockQuote, Long> {
 
-    String query = "SELECT DISTINCT s.symbol AS symbol, max(s.price) AS maximum, min(s.price) AS minimum, " +
-            "round(sum(s.volume)) AS totalVolume, s.date AS date FROM StockQuote s WHERE s.symbol= :symbol AND s.date= :date GROUP BY s.symbol";
-    String query2 = "SELECT NEW io.pivotal.workshop.domain.StockResponse(s.symbol, max(s.price) AS maximum, min(s.price) AS minimum, round(sum(s.volume)) " +
+    String query = "SELECT NEW io.pivotal.workshop.domain.StockResponse(s.symbol, max(s.price) AS maximum, min(s.price) AS minimum, round(sum(s.volume)) " +
             "AS totalVolume, s.date) FROM StockQuote s WHERE s.symbol = :symbol AND s.date = :date";
-    @Query(value = query2)
+    @Query(value = query)
     Object queryStockInfoBy(@Param("symbol") String symbol, @Param("date")Date date);
 }
