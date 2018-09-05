@@ -24,7 +24,6 @@ public class Lab2Application {
 	@Bean
 	CommandLineRunner runner(StockRepository stockRepository){
 		return args -> {
-			// read JSON and load json
 			ObjectMapper mapper = new ObjectMapper();
 			TypeReference<List<StockQuote>> typeReference = new TypeReference<List<StockQuote>>(){};
 			InputStream inputStream = TypeReference.class.getResourceAsStream("/json/stocks.json");

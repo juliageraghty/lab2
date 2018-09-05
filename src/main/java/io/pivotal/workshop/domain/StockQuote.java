@@ -1,5 +1,4 @@
 package io.pivotal.workshop.domain;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -56,7 +55,6 @@ public class StockQuote {
     public void setDate(Date date) {
         this.date = date;
     }
-
 
     public StockQuote() { }
 }
