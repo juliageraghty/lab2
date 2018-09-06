@@ -12,6 +12,7 @@ public class StockQuote {
     private String symbol;
     public long price;
     public long volume;
+
     @Temporal(TemporalType.DATE)
     @Column(name = "date", columnDefinition = "DATETIME")
     public Date date;

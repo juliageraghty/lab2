@@ -21,22 +21,5 @@ public class Lab2Application {
 		SpringApplication.run(Lab2Application.class, args);
 	}
 
-	@Bean
-	CommandLineRunner runner(StockRepository stockRepository){
-		return args -> {
-			ObjectMapper mapper = new ObjectMapper();
-			TypeReference<List<StockQuote>> typeReference = new TypeReference<List<StockQuote>>(){};
-			InputStream inputStream = TypeReference.class.getResourceAsStream("/json/stocks.json");
-			try {
-				List<StockQuote> stocks = mapper.readValue(inputStream,typeReference);
-				stockRepository.deleteAll();
-				stockRepository.saveAll(stocks);
-				System.out.println("Stocks Saved!");
-			} catch (IOException e){
-				System.out.println("Unable to save stocks: " + e.getMessage());
-			}
-		};
-	}
-
 }
 
