@@ -24,19 +24,11 @@ public class StockController {
     }
 
     @GetMapping("/save")
-    public Iterable<StockQuote> uploadFile() {
+    public Iterable<StockQuote> uploadFile() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         TypeReference<List<StockQuote>> typeReference = new TypeReference<List<StockQuote>>(){};
         InputStream inputStream = TypeReference.class.getResourceAsStream("/json/stocks.json");
-        try {
-            List<StockQuote> stocks = mapper.readValue(inputStream,typeReference);
-            stockRepository.deleteAll();
-            stockRepository.saveAll(stocks);
-            return stockRepository.findAll();
-        } catch (IOException e){
-            System.out.println("Unable to save file to database: " + e.getMessage());
-            return null;
-        }
+        return getStockQuotes(mapper.readValue(inputStream, typeReference), mapper, typeReference, inputStream);
     }
 
     @GetMapping("/list")
@@ -54,15 +46,15 @@ public class StockController {
         URL url = new URL("https://bootcamp-training-files.cfapps.io/week2/week2-stocks.json");
         ObjectMapper mapper = new ObjectMapper();
         TypeReference<List<StockQuote>> typeReference = new TypeReference<List<StockQuote>>(){};
-        try {
-            List<StockQuote> stocks = mapper.readValue(url, typeReference);
-            stockRepository.deleteAll();
-            stockRepository.saveAll(stocks);
-            return stockRepository.findAll();
-        } catch (IOException e){
-            System.out.println("Unable to save file to database: " + e.getMessage());
-            return null;
-        }
+        return getStockQuotes(mapper.readValue(url, typeReference), mapper, typeReference, null);
     }
+
+    private Iterable<StockQuote> getStockQuotes(List<StockQuote> o, ObjectMapper mapper, TypeReference<List<StockQuote>> typeReference, InputStream inputStream) {
+        List<StockQuote> stocks = o;
+        stockRepository.deleteAll();
+        stockRepository.saveAll(stocks);
+        return stockRepository.findAll();
+    }
+
 
 }
