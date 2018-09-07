@@ -23,7 +23,7 @@ public class StockController {
         this.stockRepository = stockRepository;
     }
 
-    @GetMapping("/save")
+    @PostMapping("/load")
     public Iterable<StockQuote> uploadFile() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         TypeReference<List<StockQuote>> typeReference = new TypeReference<List<StockQuote>>(){};
@@ -37,12 +37,12 @@ public class StockController {
     }
 
     @GetMapping("/{symbol}/{date}")
-    public Object queryStockInfoBy(@PathVariable("symbol") String symbol, @PathVariable("date") Date date) {
-        return stockRepository.queryStockInfoBy(symbol,date);
+    public Object queryStockInfoByDate(@PathVariable("symbol") String symbol, @PathVariable("date") Date date) {
+        return stockRepository.queryStockInfoByDate(symbol,date);
     }
 
-    @GetMapping("/load")
-    public Iterable<StockQuote> uploadLink() throws IOException {
+    @PostMapping("/dynamicLoad")
+    public Iterable<StockQuote> dynamicLoad() throws IOException {
         URL url = new URL("https://bootcamp-training-files.cfapps.io/week2/week2-stocks.json");
         ObjectMapper mapper = new ObjectMapper();
         TypeReference<List<StockQuote>> typeReference = new TypeReference<List<StockQuote>>(){};
@@ -55,6 +55,11 @@ public class StockController {
         stockRepository.saveAll(stocks);
         return stockRepository.findAll();
     }
+
+//    @GetMapping("/{symbol}/month/{date}")
+//    public Object queryStockInfoByMonth(@PathVariable("symbol") String symbol, @PathVariable("date") Date date) {
+//        return stockRepository.queryStockInfoByMonth(symbol, date);
+//    }
 
 
 }
