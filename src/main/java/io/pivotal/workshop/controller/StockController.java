@@ -16,6 +16,8 @@ import java.util.List;
 @RequestMapping("/stocks")
 public class StockController {
 
+    private String JSONUrl = "https://bootcamp-training-files.cfapps.io/week2/week2-stocks.json";
+
     @Autowired
     private StockRepository stockRepository;
 
@@ -43,7 +45,7 @@ public class StockController {
 
     @PostMapping("/dynamicLoad")
     public Iterable<StockQuote> dynamicLoad() throws IOException {
-        URL url = new URL("https://bootcamp-training-files.cfapps.io/week2/week2-stocks.json");
+        URL url = new URL(JSONUrl);
         ObjectMapper mapper = new ObjectMapper();
         TypeReference<List<StockQuote>> typeReference = new TypeReference<List<StockQuote>>(){};
         return getStockQuotes(mapper.readValue(url, typeReference), mapper, typeReference, null);
